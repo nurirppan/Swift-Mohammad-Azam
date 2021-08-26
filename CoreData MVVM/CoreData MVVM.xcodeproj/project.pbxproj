@@ -15,6 +15,8 @@
 		0E7F1C2726D7905000C58AEC /* CoreData_MVVM.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0E7F1C2526D7905000C58AEC /* CoreData_MVVM.xcdatamodeld */; };
 		0E7F1C3226D7905000C58AEC /* CoreData_MVVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7F1C3126D7905000C58AEC /* CoreData_MVVMTests.swift */; };
 		0E7F1C3D26D7905000C58AEC /* CoreData_MVVMUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7F1C3C26D7905000C58AEC /* CoreData_MVVMUITests.swift */; };
+		0EF78D2526D7E4CC003B2781 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF78D2426D7E4CC003B2781 /* CoreDataManager.swift */; };
+		0EF78D2826D7E642003B2781 /* TaskLisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF78D2726D7E642003B2781 /* TaskLisViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		0E7F1C3826D7905000C58AEC /* CoreData MVVMUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CoreData MVVMUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E7F1C3C26D7905000C58AEC /* CoreData_MVVMUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData_MVVMUITests.swift; sourceTree = "<group>"; };
 		0E7F1C3E26D7905000C58AEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0EF78D2426D7E4CC003B2781 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		0EF78D2726D7E642003B2781 /* TaskLisViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLisViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,7 @@
 		0E7F1C1926D7904E00C58AEC /* CoreData MVVM */ = {
 			isa = PBXGroup;
 			children = (
+				0EF78D2626D7E633003B2781 /* View Model */,
 				0E7F1C1A26D7904E00C58AEC /* CoreData_MVVMApp.swift */,
 				0E7F1C1C26D7904E00C58AEC /* ContentView.swift */,
 				0E7F1C1E26D7905000C58AEC /* Assets.xcassets */,
@@ -106,6 +111,7 @@
 				0E7F1C2826D7905000C58AEC /* Info.plist */,
 				0E7F1C2526D7905000C58AEC /* CoreData_MVVM.xcdatamodeld */,
 				0E7F1C2026D7905000C58AEC /* Preview Content */,
+				0EF78D2426D7E4CC003B2781 /* CoreDataManager.swift */,
 			);
 			path = "CoreData MVVM";
 			sourceTree = "<group>";
@@ -134,6 +140,14 @@
 				0E7F1C3E26D7905000C58AEC /* Info.plist */,
 			);
 			path = "CoreData MVVMUITests";
+			sourceTree = "<group>";
+		};
+		0EF78D2626D7E633003B2781 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				0EF78D2726D7E642003B2781 /* TaskLisViewModel.swift */,
+			);
+			path = "View Model";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,7 +281,9 @@
 			files = (
 				0E7F1C2426D7905000C58AEC /* Persistence.swift in Sources */,
 				0E7F1C1D26D7904E00C58AEC /* ContentView.swift in Sources */,
+				0EF78D2826D7E642003B2781 /* TaskLisViewModel.swift in Sources */,
 				0E7F1C2726D7905000C58AEC /* CoreData_MVVM.xcdatamodeld in Sources */,
+				0EF78D2526D7E4CC003B2781 /* CoreDataManager.swift in Sources */,
 				0E7F1C1B26D7904E00C58AEC /* CoreData_MVVMApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
