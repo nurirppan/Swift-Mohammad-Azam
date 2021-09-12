@@ -11,7 +11,7 @@ import CoreData
 class CoreDataManager {
     
     
-    lazy var managedObject: NSManagedObjectModel = {
+    lazy var managedObjectModel: NSManagedObjectModel = {
         guard let url = Bundle.main.url(forResource: "CoreDataBuildingBlocks", withExtension: "momd") else {
             fatalError("Failed to locate the CoreDataBlocksModel file!")
         }
@@ -22,5 +22,21 @@ class CoreDataManager {
         
         return model
         
+    }()
+    
+    lazy var coordinator: NSPersistentStoreCoordinator = {
+       let coordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        
+        let sqlitePath = documentsDirectory.appendingPathComponent("CoreDataBlocks.sqlite")
+        
+        do {
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: sqlitePath, options: nil)
+        } catch {
+            fatalError("Failed to create coordinator")
+        }
+        
+        
+        return coordinator
     }()
 }
