@@ -39,4 +39,22 @@ class CoreDataManager {
         
         return coordinator
     }()
+    
+    lazy var viewContext: NSManagedObjectContext = {
+        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        context.persistentStoreCoordinator = coordinator
+        return context
+    }()
+    
+    func saveMovie(title: String) {
+        let movie = Movie(context: viewContext)
+        movie.title = title
+        
+        do {
+            try viewContext.save()
+        } catch {
+            print("\(error.localizedDescription)")
+        }
+    }
+    
 }
