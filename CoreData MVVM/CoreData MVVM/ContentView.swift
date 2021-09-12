@@ -21,11 +21,7 @@ struct ContentView: View {
                     self.viewModel.getAllTasks()
                 }
             }
-            
-//            List(self.viewModel.tasks, id: \.id) { task in
-//                Text(task.title)
-//            }
-            
+                        
             List {
                 ForEach(self.viewModel.tasks, id: \.id) { task in
                     Text(task.title)
