@@ -12,12 +12,6 @@ struct AddMovieScreen: View {
     @StateObject private var addMovieVM = AddMovieViewModel()
     @Environment(\.presentationMode) var presentationMode
     
-    @State private var title: String = ""
-    @State private var director: String = ""
-    @State private var releaseDate: Date = Date()
-    @State private var rating: Int? = nil
-    
-    
     var body: some View {
         Form {
             TextField("Enter name", text: $addMovieVM.title)
