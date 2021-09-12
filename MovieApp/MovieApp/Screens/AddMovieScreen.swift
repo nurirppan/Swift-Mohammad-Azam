@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AddMovieScreen: View {
     
+    @StateObject private var addMovieVM = AddMovieViewModel()
     @Environment(\.presentationMode) var presentationMode
     
     @State private var title: String = ""
@@ -19,19 +20,20 @@ struct AddMovieScreen: View {
     
     var body: some View {
         Form {
-            TextField("Enter name", text: $title)
-            TextField("Enter director", text: $director)
+            TextField("Enter name", text: $addMovieVM.title)
+            TextField("Enter director", text: $addMovieVM.director)
             HStack {
                 Text("Rating")
                 Spacer()
-                RatingView(rating: $rating)
+                RatingView(rating: $addMovieVM.rating)
             }
-            DatePicker("Release Date", selection: $releaseDate)
+            DatePicker("Release Date", selection: $addMovieVM.releaseDate)
             
             HStack {
                 Spacer()
                 Button("Save") {
-                    
+                    self.addMovieVM.save()
+                    presentationMode.wrappedValue.dismiss()
                 }
                 Spacer()
             }

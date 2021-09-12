@@ -22,5 +22,14 @@ class CoreDataManager {
             }
         }
     }
+    
+    // MARK: - save movie
+    func save() {
+        do {
+            try persistentContainer.viewContext.save()
+        } catch {
+            print("Failed to save a movie \(error)")
+        }
+    }
    
 }
