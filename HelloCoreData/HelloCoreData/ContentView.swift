@@ -29,10 +29,18 @@ struct ContentView: View {
                 self.populateMovies()
             }
             
-            List(movies, id: \.self) { movie in
-                Text(movie.title ?? "")
-                
+            List {
+                ForEach(movies, id: \.self) { movie in
+                    Text(movie.title ?? "")
+                }.onDelete { indexSet in
+                    indexSet.forEach { index in
+                        let movie = self.movies[index]
+                        self.coreDM.deleteMovie(movie: movie)
+                        self.populateMovies()
+                    }
+                }
             }
+            
             
             Spacer()
         }
