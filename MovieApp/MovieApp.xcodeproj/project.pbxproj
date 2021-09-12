@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E73BF6D26EE5A9400B90B3B /* MovieApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0E73BF6B26EE5A9400B90B3B /* MovieApp.xcdatamodeld */; };
 		8D0926C125E59B3B00502FF8 /* MovieAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0926C025E59B3B00502FF8 /* MovieAppApp.swift */; };
 		8D0926C525E59B3C00502FF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D0926C425E59B3C00502FF8 /* Assets.xcassets */; };
 		8D0926C825E59B3C00502FF8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D0926C725E59B3C00502FF8 /* Preview Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E73BF6C26EE5A9400B90B3B /* MovieApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MovieApp.xcdatamodel; sourceTree = "<group>"; };
 		8D0926BD25E59B3B00502FF8 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D0926C025E59B3B00502FF8 /* MovieAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAppApp.swift; sourceTree = "<group>"; };
 		8D0926C425E59B3C00502FF8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				8D0926C025E59B3B00502FF8 /* MovieAppApp.swift */,
 				8D0926C425E59B3C00502FF8 /* Assets.xcassets */,
 				8D0926C925E59B3C00502FF8 /* Info.plist */,
+				0E73BF6B26EE5A9400B90B3B /* MovieApp.xcdatamodeld */,
 				8D0926C625E59B3C00502FF8 /* Preview Content */,
 			);
 			path = MovieApp;
@@ -199,6 +202,7 @@
 				8D5C25C825E6F3D8002BAF40 /* View+Extensions.swift in Sources */,
 				8D5C25DF25E72747002BAF40 /* MovieListScreen.swift in Sources */,
 				8D0926C125E59B3B00502FF8 /* MovieAppApp.swift in Sources */,
+				0E73BF6D26EE5A9400B90B3B /* MovieApp.xcdatamodeld in Sources */,
 				8D5C25D025E6FA7C002BAF40 /* RatingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,6 +392,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0E73BF6B26EE5A9400B90B3B /* MovieApp.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0E73BF6C26EE5A9400B90B3B /* MovieApp.xcdatamodel */,
+			);
+			currentVersion = 0E73BF6C26EE5A9400B90B3B /* MovieApp.xcdatamodel */;
+			path = MovieApp.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 8D0926B525E59B3B00502FF8 /* Project object */;
 }
