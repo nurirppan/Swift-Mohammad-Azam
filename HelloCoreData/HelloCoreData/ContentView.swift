@@ -20,33 +20,41 @@ struct ContentView: View {
     }
     
     var body: some View {
-        VStack {
-            TextField("Enter Movie Name", text: $movieName)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            
-            Button("Save") {
-                self.coreDM.saveMovie(title: movieName)
+        NavigationView {
+            VStack {
+                TextField("Enter Movie Name", text: $movieName)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                Button("Save") {
+                    self.coreDM.saveMovie(title: movieName)
+                    self.populateMovies()
+                }
+                
+                List {
+                    ForEach(movies, id: \.self) { movie in
+                        NavigationLink {
+                            MovieDetailView(
+                                movie: movie,
+                                coreDM: coreDM)
+                        } label: {
+                            Text(movie.title ?? "")
+                        }
+                    }.onDelete { indexSet in
+                        indexSet.forEach { index in
+                            let movie = self.movies[index]
+                            self.coreDM.deleteMovie(movie: movie)
+                            self.populateMovies()
+                        }
+                    }
+                }.listStyle(PlainListStyle())
+                
+                
+                Spacer()
+            }
+            .padding()
+            .onAppear {
                 self.populateMovies()
             }
-            
-            List {
-                ForEach(movies, id: \.self) { movie in
-                    Text(movie.title ?? "")
-                }.onDelete { indexSet in
-                    indexSet.forEach { index in
-                        let movie = self.movies[index]
-                        self.coreDM.deleteMovie(movie: movie)
-                        self.populateMovies()
-                    }
-                }
-            }
-            
-            
-            Spacer()
-        }
-        .padding()
-        .onAppear {
-            self.populateMovies()
         }
     }
 }

@@ -13,6 +13,7 @@
 		0E6B5BDE26E5113800E4318B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E6B5BDD26E5113800E4318B /* Preview Assets.xcassets */; };
 		0E6B5BE326E5113800E4318B /* HelloCoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B5BE126E5113800E4318B /* HelloCoreDataModel.xcdatamodeld */; };
 		0E6B5BEB26E511E100E4318B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B5BEA26E511E100E4318B /* CoreDataManager.swift */; };
+		0EBE296626EE453A00BD7EE2 /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBE296526EE453A00BD7EE2 /* MovieDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		0E6B5BDD26E5113800E4318B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0E6B5BE226E5113800E4318B /* HelloCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HelloCoreData.xcdatamodel; sourceTree = "<group>"; };
 		0E6B5BEA26E511E100E4318B /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		0EBE296526EE453A00BD7EE2 /* MovieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				0E6B5BDA26E5113800E4318B /* Assets.xcassets */,
 				0E6B5BE126E5113800E4318B /* HelloCoreDataModel.xcdatamodeld */,
 				0E6B5BDC26E5113800E4318B /* Preview Content */,
+				0EBE296526EE453A00BD7EE2 /* MovieDetailView.swift */,
 			);
 			path = HelloCoreData;
 			sourceTree = "<group>";
@@ -151,6 +154,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EBE296626EE453A00BD7EE2 /* MovieDetailView.swift in Sources */,
 				0E6B5BE326E5113800E4318B /* HelloCoreDataModel.xcdatamodeld in Sources */,
 				0E6B5BD926E5113600E4318B /* ContentView.swift in Sources */,
 				0E6B5BEB26E511E100E4318B /* CoreDataManager.swift in Sources */,
