@@ -31,5 +31,17 @@ class CoreDataManager {
             print("Failed to save a movie \(error)")
         }
     }
+    
+    // MARK: - get all movies
+    func getAllMovies() -> [Movie] {
+        let fetchRequest: NSFetchRequest<Movie> = Movie.fetchRequest()
+        
+        do {
+            return try persistentContainer.viewContext.fetch(fetchRequest)
+        } catch {
+            return []
+        }
+        
+    }
    
 }
