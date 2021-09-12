@@ -10,5 +10,17 @@ import CoreData
 
 class CoreDataManager {
     
+    let persistentContainer: NSPersistentContainer
+    
+    static let shared = CoreDataManager()
+    
+    private init() {
+        persistentContainer = NSPersistentContainer(name: "MovieAppModel")
+        persistentContainer.loadPersistentStores { (description, error) in
+            if let error = error {
+                fatalError("Failed to initialize Core Data \(error)")
+            }
+        }
+    }
    
 }
