@@ -14,6 +14,7 @@ struct ContentView: View {
     
     @State private var movieName: String = ""
     @State private var movies: [Movie] = [Movie]()
+    @State private var needRefresh: Bool = false
     
     private func populateMovies() {
         self.movies = coreDM.getAllMovies()
@@ -35,7 +36,8 @@ struct ContentView: View {
                         NavigationLink {
                             MovieDetailView(
                                 movie: movie,
-                                coreDM: coreDM)
+                                coreDM: coreDM,
+                                needRefresh: $needRefresh)
                         } label: {
                             Text(movie.title ?? "")
                         }
@@ -47,7 +49,7 @@ struct ContentView: View {
                         }
                     }
                 }.listStyle(PlainListStyle())
-                
+                    .accentColor(self.needRefresh ? .white : .black)
                 
                 Spacer()
             }
