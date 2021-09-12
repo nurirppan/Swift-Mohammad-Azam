@@ -12,28 +12,38 @@ struct MovieListScreen: View {
     @StateObject private var movieListVM = MovieListViewModel()
     @State private var isPresented: Bool = false
     
+    private func deleteMovie(at indexSet: IndexSet) {
+        indexSet.forEach { index in
+            let movie = movieListVM.movies[index]
+            // delete the movie
+            movieListVM.deleteMovie(movie: movie)
+            // get all movie
+            movieListVM.getAllMovies()
+        }
+    }
+    
     var body: some View {
         List {
             ForEach(movieListVM.movies, id: \.id) { movie in
                 MovieCell(movie: movie)
             }
-            Text("Movies")
+            .onDelete(perform: deleteMovie)
             
         }.listStyle(PlainListStyle())
-        .navigationTitle("Movies")
-        .navigationBarItems(trailing: Button("Add Movie") {
-            isPresented = true 
-        })
-        .sheet(isPresented: $isPresented, onDismiss: {
-            movieListVM.getAllMovies()
-        },  content: {
-            AddMovieScreen()
-        })
-        .embedInNavigationView()
+            .navigationTitle("Movies")
+            .navigationBarItems(trailing: Button("Add Movie") {
+                isPresented = true
+            })
+            .sheet(isPresented: $isPresented, onDismiss: {
+                movieListVM.getAllMovies()
+            },  content: {
+                AddMovieScreen()
+            })
+            .embedInNavigationView()
         
-        .onAppear(perform: {
-            movieListVM.getAllMovies()
-        })
+            .onAppear(perform: {
+                movieListVM.getAllMovies()
+            })
     }
 }
 

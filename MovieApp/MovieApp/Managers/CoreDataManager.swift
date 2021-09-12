@@ -43,5 +43,27 @@ class CoreDataManager {
         }
         
     }
+    
+    // MARK: - delete movie
+    func deleteMovie(_ movie: Movie) {
+        persistentContainer.viewContext.delete(movie)
+        
+        do {
+            try persistentContainer.viewContext.save()
+        } catch {
+            persistentContainer.viewContext.rollback()
+            print("Failed to delete movie \(error)")
+        }
+    }
+    
+    // MARK: - get detail movie
+    func getMovieById(id: NSManagedObjectID) -> Movie? {
+        do {
+            return try persistentContainer.viewContext.existingObject(with: id) as? Movie
+        } catch {
+            print(error)
+            return nil
+        }
+    }
    
 }
