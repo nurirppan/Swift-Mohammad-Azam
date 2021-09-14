@@ -31,4 +31,7 @@ struct ActorViewModel {
         return actor.name ?? ""
     }
     
+    var movies: [MovieViewModel] {
+        Movie.byActorName(name: name).map(MovieViewModel.init)
+    }
 }

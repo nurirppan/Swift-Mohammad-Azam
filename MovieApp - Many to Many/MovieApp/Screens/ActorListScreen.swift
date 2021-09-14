@@ -22,7 +22,7 @@ struct ActorListScreen: View {
                         
                         HStack {
                             NavigationLink(
-                                destination: Text(index.name),
+                                destination: ActorDetailsScreen(actor: index),
                                 label: {
                                     Text(index.name)
                                         .foregroundColor(.black)
