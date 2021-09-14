@@ -5,10 +5,16 @@
         <attribute name="rating" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="releaseDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String"/>
+        <relationship name="reviews" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Review" inverseName="movie" inverseEntity="Review"/>
     </entity>
-    <entity name="Review" representedClassName="Review" syncable="YES" codeGenerationType="class"/>
+    <entity name="Review" representedClassName="Review" syncable="YES" codeGenerationType="class">
+        <attribute name="publishedAt" attributeType="Date" defaultDateTimeInterval="653292660" usesScalarValueType="NO"/>
+        <attribute name="text" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <relationship name="movie" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Movie" inverseName="reviews" inverseEntity="Movie"/>
+    </entity>
     <elements>
-        <element name="Movie" positionX="-63" positionY="-18" width="128" height="103"/>
-        <element name="Review" positionX="-54" positionY="27" width="128" height="29"/>
+        <element name="Movie" positionX="-63" positionY="-18" width="128" height="104"/>
+        <element name="Review" positionX="-54" positionY="27" width="128" height="89"/>
     </elements>
 </model>
