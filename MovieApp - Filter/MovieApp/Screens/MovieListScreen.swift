@@ -21,6 +21,7 @@ struct MovieListScreen: View {
     
     @StateObject private var movieListVM = MovieListViewModel()
     @State private var activeSheet: Sheets?
+    @State private var filterApplied: Bool = false
     
     private func deleteMovie(at indexSet: IndexSet) {
         indexSet.forEach { index in
@@ -40,6 +41,7 @@ struct MovieListScreen: View {
                 }.padding()
                 Spacer()
                 Button("Filter") {
+                    self.filterApplied = true
                     activeSheet = .showFilters
                 }
             }.padding(.trailing, 40)
@@ -61,11 +63,8 @@ struct MovieListScreen: View {
                 activeSheet = .addMovie
             })
             .sheet(item: $activeSheet, onDismiss: {
-                switch activeSheet {
-                    case .addMovie:
-                        movieListVM.getAllMovies()
-                    case .none, .showFilters:
-                        break
+                if (!filterApplied) {
+                    self.movieListVM.getAllMovies()
                 }
             }, content: { item in
                 switch item {
