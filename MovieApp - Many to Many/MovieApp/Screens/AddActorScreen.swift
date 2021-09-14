@@ -10,6 +10,9 @@ import SwiftUI
 struct AddActorScreen: View {
     
     @Environment(\.presentationMode) private var presentationMode
+    @StateObject var addActorVM = AddActorViewModel()
+    
+    let movie: MovieViewModel
     
     var body: some View {
         
@@ -17,9 +20,9 @@ struct AddActorScreen: View {
                 VStack(alignment: .leading) {
                     Text("Add Actor")
                         .font(.largeTitle)
-                    Text("Lord of the Rings")
+                    Text(movie.title)
                 }.padding(.bottom, 50)
-                //TextField("Enter name", text: $addActorVM.name)
+                TextField("Enter name", text: $addActorVM.name)
                 HStack {
                     Spacer()
                     Button("Cancel") {
@@ -27,7 +30,7 @@ struct AddActorScreen: View {
                     }.buttonStyle(PlainButtonStyle())
                     Spacer()
                     Button("Save") {
-                        
+                        self.addActorVM.addActorToMovie(movidId: movie.movieId)
                         presentationMode.wrappedValue.dismiss()
                     }.buttonStyle(PlainButtonStyle())
                     Spacer()
@@ -38,6 +41,8 @@ struct AddActorScreen: View {
 
 struct AddActorScreen_Previews: PreviewProvider {
     static var previews: some View {
-        AddActorScreen()
+        let movie = MovieViewModel(movie: Movie(context: CoreDataManager.shared.viewContext))
+        
+        AddActorScreen(movie: movie)
     }
 }

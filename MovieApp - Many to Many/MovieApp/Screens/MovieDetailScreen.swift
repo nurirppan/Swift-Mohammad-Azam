@@ -43,7 +43,7 @@ struct MovieDetailScreen: View {
                     })
                 
                 NavigationLink(
-                    destination: Text("Actors"),
+                    destination: ActorListScreen(movie: movie),
                     label: {
                         Text("Actors")
                     })
