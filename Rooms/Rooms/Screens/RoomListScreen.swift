@@ -9,29 +9,34 @@ import SwiftUI
 
 struct RoomListScreen: View {
     
+    @StateObject var viewModel = RoomListViewModel()
     @State private var isPresented: Bool = false
     
     var body: some View {
         NavigationView {
             
-            List(0...20, id: \.self) { index in
-                
+            List(self.viewModel.rooms, id: \.roomId) { room in
                 HStack {
-                    Text("Room \(index)")
+                    Text(room.name)
+                    Spacer()
+                    HStack {
+                        
+                    }
+                    .frame(width: 50, height: 50)
+                    .background(Color(room.color))
                 }
-                
-            }.listStyle(PlainListStyle())
+            }
             
             .navigationTitle("All Rooms")
             .navigationBarItems(trailing: Button("Add New Room") {
                 isPresented = true
             })
             .onAppear(perform: {
-                
+                self.viewModel.populateRooms()
             })
             
             .sheet(isPresented: $isPresented, onDismiss: {
-                
+                self.viewModel.populateRooms()
             } ,content: {
                 AddRoomScreen()
             })
