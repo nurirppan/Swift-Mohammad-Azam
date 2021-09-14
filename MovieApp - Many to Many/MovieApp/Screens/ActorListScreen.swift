@@ -10,6 +10,7 @@ import SwiftUI
 struct ActorListScreen: View {
     
     @State private var isPresented: Bool = false
+    @StateObject var actorListVM = ActorListViewModel()
     let movie: MovieViewModel
     
     var body: some View {
@@ -17,13 +18,13 @@ struct ActorListScreen: View {
             List {
             
                 Section(header: Text("Actors")) {
-                    ForEach(0...10, id: \.self) { index in
+                    ForEach(self.actorListVM.actors, id: \.actorId) { index in
                         
                         HStack {
                             NavigationLink(
-                                destination: Text("\(index)"),
+                                destination: Text(index.name),
                                 label: {
-                                    Text("Actor Name")
+                                    Text(index.name)
                                         .foregroundColor(.black)
                                 })
                             Spacer()
@@ -38,10 +39,10 @@ struct ActorListScreen: View {
             
         
         .onAppear(perform: {
-            
+            self.actorListVM.getActorsByMovie(vm: self.movie)
         })
         .sheet(isPresented: $isPresented, onDismiss: {
-            
+            self.actorListVM.getActorsByMovie(vm: self.movie)
         }, content: {
             AddActorScreen(movie: movie)
         })
