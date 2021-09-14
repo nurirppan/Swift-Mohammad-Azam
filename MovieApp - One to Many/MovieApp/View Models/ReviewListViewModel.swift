@@ -17,15 +17,6 @@ class ReviewListViewModel: ObservableObject {
             self.reviews = Review.getReviewsByMovieId(movieId: vm.id).map(ReviewViewModel.init)
         }
     }
-    //    func getReviewsByMovie(vm: MovieViewModel) {
-    //        let movie = CoreDataManager.shared.getMovieById(id: vm.id)
-    //
-    //        if let movie = movie {
-    //            DispatchQueue.main.async {
-    //                self.reviews = (movie.reviews?.allObjects as! [Review]).map(ReviewViewModel.init)
-    //            }
-    //        }
-    //    }
     
 }
 

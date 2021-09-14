@@ -17,12 +17,22 @@ protocol BaseModel: NSManagedObject {
 }
 
 extension BaseModel {
+    
+    static var viewContext: NSManagedObjectContext {
+        return CoreDataManager.shared.viewContext
+    }
+    
     func save() {
-        CoreDataManager.shared.save()
+        do {
+            try Self.viewContext.save()
+        } catch {
+            Self.viewContext.rollback()
+            print(error)
+        }
     }
     
     func delete() {
-        CoreDataManager.shared.viewContext.delete(self)
+        Self.viewContext.delete(self)
         save()
     }
     
@@ -30,7 +40,7 @@ extension BaseModel {
         let fetchRequest: NSFetchRequest<T> = NSFetchRequest(entityName: String(describing: T.self)) // this means that for this particular type you are going to create the request itself
         
         do {
-            return try CoreDataManager.shared.viewContext.fetch(fetchRequest)
+            return try viewContext.fetch(fetchRequest)
         } catch {
             return []
         }
@@ -38,7 +48,7 @@ extension BaseModel {
     
     static func byId<T>(id: NSManagedObjectID) -> T? where T: NSManagedObject {
         do {
-            return try CoreDataManager.shared.viewContext.existingObject(with: id) as? T
+            return try viewContext.existingObject(with: id) as? T
         } catch {
             print(error)
             return nil

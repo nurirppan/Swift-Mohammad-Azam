@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-extension Review {
+extension Review: BaseModel {
     
     static func getReviewsByMovieId(movieId: NSManagedObjectID) -> [Review] {
         
@@ -22,4 +22,6 @@ extension Review {
         }
     }
 }
-// movie = %@ -> movie sama dengan sesuai
+/**
+ movie = %@ -> movie sama dengan sesuai
+ */
