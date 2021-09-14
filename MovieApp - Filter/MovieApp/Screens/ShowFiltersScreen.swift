@@ -96,8 +96,8 @@ struct ShowFiltersScreen: View {
                     Spacer()
                     Button("Search") {
                         
-                       
-                        
+                        self.movies = filtersVM.filterMovieByTitle(title: movieTitle)
+                        presentationMode.wrappedValue.dismiss()
                     }.buttonStyle(PlainButtonStyle())
                     Spacer()
                 }

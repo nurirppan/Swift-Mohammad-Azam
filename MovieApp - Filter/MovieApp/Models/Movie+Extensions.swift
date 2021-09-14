@@ -10,6 +10,21 @@ import CoreData
 
 extension Movie: BaseModel {
     
+    // MARK: - FIND BY PREFIX
+    //[cd]
+    // C : case sensitive
+    // D : Dialect
+    static func byMovieTitle(title: String) -> [Movie] {
+        let request: NSFetchRequest<Movie> = Movie.fetchRequest()
+        request.predicate = NSPredicate(format: "%K BEGINSWITH[cd] %@", #keyPath(Movie.title), title)
+        
+        do {
+            return try viewContext.fetch(request)
+        } catch {
+            return []
+        }
+    }
+    
     // MARK: - FIND DATE RANGE AND RATING
     static func byDateRangeOrMinimunRating(lower: Date?, upper: Date?, minimumRating: Int?) -> [Movie] {
         
@@ -33,6 +48,7 @@ extension Movie: BaseModel {
         }
         
         // NSCompoundPredicate : is the specialized predicate that can perform logical operations like and and or
+        // allows you to join different predicates, example using alot of and and or
         let request: NSFetchRequest<Movie> = Movie.fetchRequest()
         request.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: predicates)
         
@@ -78,7 +94,13 @@ extension Movie: BaseModel {
     static func byActorName(name: String) -> [Movie] {
         
         let request: NSFetchRequest<Movie> = Movie.fetchRequest()
-        request.predicate = NSPredicate(format: "actors.name CONTAINS %@", name)
+//        request.predicate = NSPredicate(format: "actors.name CONTAINS %@", name)
+//        request.predicate = NSPredicate(format: "%K.name CONTAINS %@", #keyPath(Movie.actors), name)
+        request.predicate = NSPredicate(
+            format: "%K.%K CONTAINS %@",
+            #keyPath(Movie.actors),
+            #keyPath(Actor.name),
+            name)
         
         do {
             return try viewContext.fetch(request)
