@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0EBFE8C026F0E50D009A15C2 /* FiltersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBFE8BF26F0E50D009A15C2 /* FiltersViewModel.swift */; };
 		8D0926C125E59B3B00502FF8 /* MovieAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0926C025E59B3B00502FF8 /* MovieAppApp.swift */; };
 		8D0926C525E59B3C00502FF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D0926C425E59B3C00502FF8 /* Assets.xcassets */; };
 		8D0926C825E59B3C00502FF8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D0926C725E59B3C00502FF8 /* Preview Assets.xcassets */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0EBFE8BF26F0E50D009A15C2 /* FiltersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersViewModel.swift; sourceTree = "<group>"; };
 		8D0926BD25E59B3B00502FF8 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D0926C025E59B3B00502FF8 /* MovieAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAppApp.swift; sourceTree = "<group>"; };
 		8D0926C425E59B3C00502FF8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -109,8 +111,8 @@
 				8D0926C025E59B3B00502FF8 /* MovieAppApp.swift */,
 				8D0926C425E59B3C00502FF8 /* Assets.xcassets */,
 				8D0926C925E59B3C00502FF8 /* Info.plist */,
-				8D0926C625E59B3C00502FF8 /* Preview Content */,
 				8DCCEBF725E8B28900F0B0F3 /* MovieAppModel.xcdatamodeld */,
+				8D0926C625E59B3C00502FF8 /* Preview Content */,
 			);
 			path = MovieApp;
 			sourceTree = "<group>";
@@ -140,6 +142,7 @@
 				8D919E3A25EED5030029DEFB /* ReviewListViewModel.swift */,
 				8D1D27CC25FE75B20064FA48 /* AddActorViewModel.swift */,
 				8D45EEC125FFDD38002C48C0 /* ActorListViewModel.swift */,
+				0EBFE8BF26F0E50D009A15C2 /* FiltersViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				8DC584AA26053B7C0032C172 /* String+Extensions.swift in Sources */,
 				8DADCC862602E26400A9C8F4 /* ShowFiltersScreen.swift in Sources */,
 				8D5C25DF25E72747002BAF40 /* MovieListScreen.swift in Sources */,
+				0EBFE8C026F0E50D009A15C2 /* FiltersViewModel.swift in Sources */,
 				8D919E1625EE9E5C0029DEFB /* AddReviewScreen.swift in Sources */,
 				8D45EEC225FFDD38002C48C0 /* ActorListViewModel.swift in Sources */,
 				8D0926C125E59B3B00502FF8 /* MovieAppApp.swift in Sources */,

@@ -72,7 +72,7 @@ struct MovieListScreen: View {
                     case .addMovie:
                         AddMovieScreen()
                     case .showFilters:
-                        ShowFiltersScreen()
+                    ShowFiltersScreen(movies: $movieListVM.movies)
                 }
             })
             .onAppear(perform: {
