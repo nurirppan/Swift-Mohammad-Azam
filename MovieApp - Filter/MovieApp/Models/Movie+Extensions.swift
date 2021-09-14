@@ -10,6 +10,39 @@ import CoreData
 
 extension Movie: BaseModel {
     
+    // MARK: - FIND DATE RANGE AND RATING
+    static func byDateRangeOrMinimunRating(lower: Date?, upper: Date?, minimumRating: Int?) -> [Movie] {
+        
+        var predicates: [NSPredicate] = []
+        
+        if let lower = lower, let upper = upper {
+            let dateRangePredicate = NSPredicate(
+                format: "%K >= %@ AND %K <= %@",
+                #keyPath(Movie.releaseDate),
+                lower as NSDate,
+                #keyPath(Movie.releaseDate),
+                upper as NSDate)
+            
+            predicates.append(dateRangePredicate)
+            
+        } else if let minRating = minimumRating {
+            // %@ -> hanya untuk string, int tidak bisa
+            // %i -> khusus number
+            let minRatingPredicate = NSPredicate(format: "%K >= %i", #keyPath(Movie.rating), minRating)
+            predicates.append(minRatingPredicate)
+        }
+        
+        // NSCompoundPredicate : is the specialized predicate that can perform logical operations like and and or
+        let request: NSFetchRequest<Movie> = Movie.fetchRequest()
+        request.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: predicates)
+        
+        do {
+            return try viewContext.fetch(request)
+        } catch {
+            return []
+        }
+    }
+    
     // MARK: - FIND BY DATE RANGE
     static func byDateRange(lower: Date, upper: Date) -> [Movie] {
         let request: NSFetchRequest<Movie> = Movie.fetchRequest()
@@ -57,3 +90,4 @@ extension Movie: BaseModel {
     }
     
 }
+
