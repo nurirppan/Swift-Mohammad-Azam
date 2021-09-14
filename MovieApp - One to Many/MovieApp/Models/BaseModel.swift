@@ -4,6 +4,9 @@
 //
 //  Created by Nur Irfan Pangestu on 14/09/21.
 //
+/**
+ The part where Self: NSManagedObject means that the class which conforms to the BaseModel must inherit from NSManagedObject.
+ */
 
 import Foundation
 import CoreData
