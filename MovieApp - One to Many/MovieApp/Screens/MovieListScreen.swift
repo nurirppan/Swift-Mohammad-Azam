@@ -26,7 +26,11 @@ struct MovieListScreen: View {
         List {
             
             ForEach(movieListVM.movies, id: \.id) { movie in
-                MovieCell(movie: movie)
+                NavigationLink {
+                    ReviewListScreen(movie: movie)
+                } label: {
+                    MovieCell(movie: movie)
+                }
             }.onDelete(perform: deleteMovie)
             
         }.listStyle(PlainListStyle())

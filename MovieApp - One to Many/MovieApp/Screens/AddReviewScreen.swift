@@ -12,18 +12,18 @@ struct AddReviewScreen: View {
     @StateObject private var addReviewVM = AddReviewViewModel()
     @Environment(\.presentationMode) var presentationMode
     
-    @State private var title: String = ""
-    @State private var text: String = ""
-    
+    let movie: MovieViewModel
+        
     var body: some View {
         Form {
-            TextField("Enter title", text: $title)
-            TextEditor(text: $text)
+            TextField("Enter title", text: $addReviewVM.title)
+            TextEditor(text: $addReviewVM.text)
             
             HStack {
                 Spacer()
                 Button("Save") {
-                  
+                    addReviewVM.addReviewMovie(vm: self.movie)
+                    presentationMode.wrappedValue.dismiss()
                 }
                 Spacer()
             }
@@ -37,6 +37,8 @@ struct AddReviewScreen: View {
 struct AddReviewScreen_Previews: PreviewProvider {
     static var previews: some View {
         
-        AddReviewScreen()
+        let movie = MovieViewModel(movie: Movie(context: CoreDataManager.shared.viewContext))
+        
+        AddReviewScreen(movie: movie)
     }
 }
