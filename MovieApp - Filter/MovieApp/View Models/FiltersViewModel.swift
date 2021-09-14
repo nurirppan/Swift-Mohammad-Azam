@@ -26,4 +26,8 @@ class FiltersViewModel: ObservableObject {
         return Movie.byMovieTitle(title: title).map(MovieViewModel.init)
     }
     
+    func filterMovieByMinimumReviewCount(minimumReviewCount: Int = 0) -> [MovieViewModel] {
+        return Movie.byMinimumReviewCount(minimumReviewCount: minimumReviewCount).map(MovieViewModel.init)
+    }
+    
 }

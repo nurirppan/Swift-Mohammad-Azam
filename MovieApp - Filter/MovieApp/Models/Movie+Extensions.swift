@@ -9,6 +9,19 @@ import Foundation
 import CoreData
 
 extension Movie: BaseModel {
+    // MARK: - REVIEW COUNT
+    // @count : a founction that is going to return you the number of element inside the count
+    static func byMinimumReviewCount(minimumReviewCount: Int) -> [Movie] {
+        let request: NSFetchRequest<Movie> = Movie.fetchRequest()
+//        request.predicate = NSPredicate(format: "reviews.@count >= %i", minimumReviewCount)
+        request.predicate = NSPredicate(format: "%K.@count >= %@", #keyPath(Movie.reviews), minimumReviewCount)
+        do {
+            return try viewContext.fetch(request)
+        } catch {
+            return []
+        }
+    }
+    
     
     // MARK: - FIND BY PREFIX
     //[cd]

@@ -15,6 +15,7 @@ struct ShowFiltersScreen: View {
     @State private var minimumRating: String = ""
     @State private var movieTitle: String = ""
     @State private var actorName: String = ""
+    @State private var minimumReviewCount: String = "1"
     
     @Binding var movies: [MovieViewModel]
     
@@ -51,7 +52,7 @@ struct ShowFiltersScreen: View {
                         self.movies = filtersVM.filterMovieByDateRange(lower: lowerBound, upper: upperBound)
                         
                         self.presentationMode.wrappedValue.dismiss()
-                       
+                        
                     }.buttonStyle(PlainButtonStyle())
                     Spacer()
                 }
@@ -70,7 +71,7 @@ struct ShowFiltersScreen: View {
                         let minRating = Int(minimumRating)
                         
                         self.movies = self.filtersVM.filterMovieByDateRangeOrMinimunRating(lower: lower, upper: upper, minimumRating: minRating)
-                       
+                        
                         self.presentationMode.wrappedValue.dismiss()
                     }.buttonStyle(PlainButtonStyle())
                     Spacer()
@@ -83,7 +84,7 @@ struct ShowFiltersScreen: View {
                     Spacer()
                     Button("Search") {
                         
-                       
+                        
                         
                     }.buttonStyle(PlainButtonStyle())
                     Spacer()
@@ -97,6 +98,22 @@ struct ShowFiltersScreen: View {
                     Button("Search") {
                         
                         self.movies = filtersVM.filterMovieByTitle(title: movieTitle)
+                        presentationMode.wrappedValue.dismiss()
+                    }.buttonStyle(PlainButtonStyle())
+                    Spacer()
+                }
+            }
+            
+            Section(header: Text("Search movie by minimum review count")) {
+                TextField("Enter minimum review count", text: $minimumReviewCount)
+                HStack {
+                    Spacer()
+                    Button("Search") {
+                        
+                        if !minimumReviewCount.isEmpty {
+                            self.movies = filtersVM.filterMovieByMinimumReviewCount(minimumReviewCount: Int(minimumReviewCount) ?? 0)
+                        }
+                        
                         presentationMode.wrappedValue.dismiss()
                     }.buttonStyle(PlainButtonStyle())
                     Spacer()
