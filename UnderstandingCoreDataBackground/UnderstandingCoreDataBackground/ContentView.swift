@@ -27,6 +27,22 @@ struct ContentView: View {
         return movies ?? []
     }
     
+    private func loadAllMovies(completion: @escaping ([Movie]) -> Void) {
+        // performBackgroundTask -> whatever task you are going to about to perform on a given context, they are going to be perform in the background
+        CoreDataManager.shared.persistentContainer.performBackgroundTask { (context) in
+            let request: NSFetchRequest<Movie> = Movie.fetchRequest()
+            guard let movies = try? context.fetch(request) else { return }
+            
+            DispatchQueue.main.async {
+                let viewContext = CoreDataManager.shared.viewContext
+                let movies = movies.compactMap { movie in
+                    try? viewContext.existingObject(with: movie.objectID) as? Movie
+                }
+                completion(movies)
+            }
+        }
+    }
+    
     private func loadMovies() {
         let request: NSFetchRequest<Movie> = Movie.fetchRequest()
         do {
@@ -93,7 +109,15 @@ struct ContentView: View {
         .navigationTitle("Movies")
             
         }.onAppear(perform: {
-            // self.loadMovies()
+            // this is using perform backgroudn task, cara cepat pengganti yang bawah
+            self.loadAllMovies { movies in
+                
+                self.movies = movies
+                for movie in movies {
+                    print(movie.title ?? "")
+                }
+            }
+            /**
             DispatchQueue.global().async {
                 let viewContext = CoreDataManager.shared.viewContext
                 let bgContext = CoreDataManager.shared.persistentContainer.newBackgroundContext()
@@ -107,6 +131,7 @@ struct ContentView: View {
                     }
                 }
             }
+             */
         })
             
         }
