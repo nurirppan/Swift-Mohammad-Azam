@@ -56,7 +56,9 @@ class MovieListViewModel: NSObject, ObservableObject {
     @Published var filterEnabled: Bool = false
     @Published var sortEnable: Bool = false
     @Published var selectedSortOption: SortOptions = .title
-    @Published var selectedSortDirection: SortDirection = .ascending 
+    @Published var selectedSortDirection: SortDirection = .ascending
+    
+    private var fetchedResultsController: NSFetchedResultsController<Movie>!
 
     func deleteMovie(movie: MovieViewModel) {
         let movie: Movie? = Movie.byId(id: movie.movieId)
@@ -86,8 +88,24 @@ class MovieListViewModel: NSObject, ObservableObject {
     }
     
     func getAllMovies() {
+        let request: NSFetchRequest<Movie> = Movie.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataManager.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController.delegate = self
+        try? fetchedResultsController.performFetch()
+        
         DispatchQueue.main.async {
-            self.movies = Movie.all().map(MovieViewModel.init)
+            self.movies = (self.fetchedResultsController.fetchedObjects ?? []).map(MovieViewModel.init)
+        }
+    }
+}
+
+extension MovieListViewModel: NSFetchedResultsControllerDelegate {
+    
+    // ketika menambah atau suatu perubahan, kamu akan memangguil fungsi ini, akan otomatis di jalankan. dan akan secara otomatis akan di jalankan kembali
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        DispatchQueue.main.async {
+            self.movies = (controller.fetchedObjects as? [Movie] ?? []).map(MovieViewModel.init)
         }
     }
 }

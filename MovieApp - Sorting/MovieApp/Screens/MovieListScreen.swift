@@ -75,7 +75,8 @@ struct MovieListScreen: View {
                     activeSheet = .addMovie
                 })
                 .sheet(item: $activeSheet, onDismiss: {
-                    getAllMovies()
+                    // MARK: - sudah tidak memanggil fungsi ini dikarnakan sudah menggunakan delegate function
+                    // getAllMovies()
                 }, content: { item in
                     switch item {
                     case .addMovie:
