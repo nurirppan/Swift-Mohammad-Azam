@@ -13,6 +13,20 @@ struct ContentView: View {
     @State private var movies: [Movie] = []
     @State private var movieName: String = ""
     
+    // context: NSManagedObjectContext ditambahkan sebagai param dikarnakan untuk memilihn apakah mau di jalankan via foreground atau background
+    private func loadAllMovies(byRating rating: Int, in context: NSManagedObjectContext) -> [Movie] {
+        var movies: [Movie]? = []
+        
+        context.performAndWait {
+            let request: NSFetchRequest<Movie> = Movie.fetchRequest()
+            request.predicate = NSPredicate(format: "%K > %i", #keyPath(Movie.rating), rating)
+            movies = try? context.fetch(request)
+            
+        }
+        
+        return movies ?? []
+    }
+    
     private func loadMovies() {
         let request: NSFetchRequest<Movie> = Movie.fetchRequest()
         do {
@@ -79,7 +93,20 @@ struct ContentView: View {
         .navigationTitle("Movies")
             
         }.onAppear(perform: {
-            self.loadMovies()
+            // self.loadMovies()
+            DispatchQueue.global().async {
+                let viewContext = CoreDataManager.shared.viewContext
+                let bgContext = CoreDataManager.shared.persistentContainer.newBackgroundContext()
+                let movies = loadAllMovies(byRating: 1, in: viewContext)
+                
+                // MARK: - contoh print title dari background ke foreground tetapi menggunakan viewContext, caranya harus menggunakan movie.objectID. karna objectID bisa di jalankan di foreground dan background tanpa perlu menggunakan fungsi khusus. berikut contoh real nya
+                for movie in movies {
+                    bgContext.perform {
+                        let movie = try? bgContext.existingObject(with: movie.objectID) as? Movie
+                        print(movie?.title ?? "")
+                    }
+                }
+            }
         })
             
         }
