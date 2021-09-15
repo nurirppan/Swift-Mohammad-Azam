@@ -22,10 +22,27 @@ class MovieListViewModel: NSObject, ObservableObject {
     }
     
     @objc func didSave(_ notification: Notification) {
+        let viewContext = CoreDataManager.shared.viewContext
+        DispatchQueue.main.async {
+            // notification does contain the changes which are coming from the background context
+            viewContext.mergeChanges(fromContextDidSave: notification)
+        }
+        /**
         let insertedObjectsKey = NSManagedObjectContext.NotificationKey.insertedObjects.rawValue
         print(notification.userInfo?[insertedObjectsKey])
         
         loadMovies()
+         */
+    }
+    
+    func updateRating(movieId: NSManagedObjectID, rating: Int16, in context: NSManagedObjectContext) {
+        context.perform {
+            let movie = try? context.existingObject(with: movieId) as? Movie
+            if let movie = movie {
+                movie.rating = rating
+                try? context.save()
+            }
+        }
     }
     
     func loadMovies() {
@@ -88,6 +105,9 @@ struct MovieViewModel {
     
     let id = UUID()
     
+    var objectID: NSManagedObjectID {
+        return movie.objectID
+    }
     var title: String {
         return movie.title ?? ""
     }

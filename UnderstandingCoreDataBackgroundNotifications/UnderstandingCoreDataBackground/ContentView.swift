@@ -40,6 +40,10 @@ struct ContentView: View {
                     Text("\(movie.rating)")
                     Image(systemName: "star.fill")
                         .foregroundColor(.yellow)
+                    
+                    Button("Update") {
+                        self.movieListVM.updateRating(movieId: movie.objectID, rating: Int16.random(in: 1...5), in: CoreDataManager.shared.backgroundContext)
+                    }
                 }
             }.listStyle(PlainListStyle())
         .navigationTitle("Movies")
