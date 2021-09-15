@@ -1,0 +1,136 @@
+//
+//  ContentView.swift
+//  UnderstandingCoreDataBackground
+//
+//  Created by Mohammad Azam on 3/25/21.
+//
+
+import SwiftUI
+import CoreData
+
+struct ContentView: View {
+    
+    @State private var movies: [Movie] = []
+    @State private var movieName: String = ""
+    
+    private func loadAllMovies() {
+        
+        let request: NSFetchRequest<Movie> = Movie.fetchRequest()
+        do {
+            movies = try CoreDataManager.shared.viewContext.fetch(request)
+        } catch {
+            print(error)
+        }
+    }
+    
+    private func loadAllMoviesIdByPerformBackgroundTask(completion: @escaping ([NSManagedObjectID]) -> Void) {
+        
+        CoreDataManager.shared.persistentContainer.performBackgroundTask { (context) in
+            
+            let request: NSFetchRequest<NSManagedObjectID> = NSFetchRequest(entityName: "Movie")
+            request.resultType = .managedObjectIDResultType
+            
+            let ids = (try? context.fetch(request)) ?? []
+            DispatchQueue.main.async {
+                completion(ids)
+            }
+        }
+        
+    }
+    
+    private func loadAllMovies(byRating rating: Int, in context: NSManagedObjectContext) -> [Movie] {
+        
+        var movies: [Movie]? = []
+        
+        context.performAndWait {
+            let request: NSFetchRequest<Movie> = Movie.fetchRequest()
+            request.predicate = NSPredicate(format: "%K > %i", #keyPath(Movie.rating), rating)
+            movies = try? context.fetch(request)
+        }
+        
+        return movies ?? []
+    }
+    
+    private func saveMovieWithCompletionHandler(completion: @escaping () -> Void) {
+        DispatchQueue.global().async {
+            let backgroundContext = CoreDataManager.shared.persistentContainer.newBackgroundContext()
+            backgroundContext.perform {
+                let movie = Movie(context: backgroundContext)
+                movie.title = movieName
+                movie.rating = Int16.random(in: 1...5)
+                try? backgroundContext.save()
+                DispatchQueue.main.async {
+                    completion()
+                }
+            }
+        }
+    }
+    
+    var body: some View {
+        
+        NavigationView {
+        VStack {
+            
+            HStack {
+                TextField("Movie name", text: $movieName)
+                Button("Save") {
+                   
+                    
+                    
+                }
+            }.padding()
+            
+            List(movies, id: \.self) { movie in
+                HStack {
+                    Text(movie.title ?? "")
+                    Spacer()
+                    Text("\(movie.rating)")
+                    Image(systemName: "star.fill")
+                        .foregroundColor(.yellow)
+                }
+            }.listStyle(PlainListStyle())
+        .navigationTitle("Movies")
+            
+        }.onAppear(perform: {
+           
+            /*
+            loadAllMoviesIdByPerformBackgroundTask { (ids) in
+                let viewContext = CoreDataManager.shared.persistentContainer.viewContext
+                let movies = ids.map { id in
+                    return (try? viewContext.existingObject(with: id) as? Movie)
+                }
+                
+                print(movies)
+            } */
+            
+            
+            DispatchQueue.global().async {
+                let viewContext = CoreDataManager.shared.viewContext
+                let bgContext = CoreDataManager.shared.persistentContainer.newBackgroundContext()
+                let movies = loadAllMovies(byRating: 1, in: viewContext)
+                DispatchQueue.main.async {
+                   // self.movies = movies
+                }
+                for movie in self.movies {
+                    bgContext.perform {
+                        let movie = try? bgContext.existingObject(with: movie.objectID) as? Movie
+                        print(movie?.title ?? "")
+                    }
+                }
+            }
+            
+            //loadAllMovies()
+            
+            
+        })
+            
+        }
+           
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
