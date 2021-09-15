@@ -27,6 +27,7 @@ class CoreDataManager {
         
     private init() {
         persistentContainer = NSPersistentContainer(name: "MovieAppModel")
+        persistentContainer.viewContext.automaticallyMergesChangesFromParent = true // hanya menggunakan cara ini, ini cara cepat menggabungkan dari background thread ke main thrad
         persistentContainer.loadPersistentStores { (description, error) in
             if let error = error {
                 fatalError("Unable to initialize Core Data \(error)")

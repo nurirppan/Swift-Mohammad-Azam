@@ -22,11 +22,14 @@ class MovieListViewModel: NSObject, ObservableObject {
     }
     
     @objc func didSave(_ notification: Notification) {
+        /**
+         init adalah cara manual nya, cara otomatisnya, ada di coredatamanager
         let viewContext = CoreDataManager.shared.viewContext
         DispatchQueue.main.async {
             // notification does contain the changes which are coming from the background context
             viewContext.mergeChanges(fromContextDidSave: notification)
         }
+         */
         /**
         let insertedObjectsKey = NSManagedObjectContext.NotificationKey.insertedObjects.rawValue
         print(notification.userInfo?[insertedObjectsKey])
