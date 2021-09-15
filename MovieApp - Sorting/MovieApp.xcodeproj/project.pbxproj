@@ -113,8 +113,8 @@
 				8D0926C025E59B3B00502FF8 /* MovieAppApp.swift */,
 				8D0926C425E59B3C00502FF8 /* Assets.xcassets */,
 				8D0926C925E59B3C00502FF8 /* Info.plist */,
-				8D0926C625E59B3C00502FF8 /* Preview Content */,
 				8DCCEBF725E8B28900F0B0F3 /* MovieAppModel.xcdatamodeld */,
+				8D0926C625E59B3C00502FF8 /* Preview Content */,
 			);
 			path = MovieApp;
 			sourceTree = "<group>";

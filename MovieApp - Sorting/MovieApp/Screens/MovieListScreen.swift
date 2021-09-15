@@ -45,7 +45,7 @@ struct MovieListScreen: View {
                     movieListVM.getAllMovies()
                 }.padding()
                 Button("Sort") {
-                    
+                    movieListVM.sortEnable = true
                 }
                 Spacer()
                 VStack(spacing: 10) {
@@ -55,8 +55,8 @@ struct MovieListScreen: View {
                     }
                 }
             }.padding(.trailing, 40)
-            .background(Color(#colorLiteral(red: 0.202427417, green: 0.5955722928, blue: 0.8584871888, alpha: 1)))
-            .foregroundColor(.white)
+                .background(Color(#colorLiteral(red: 0.202427417, green: 0.5955722928, blue: 0.8584871888, alpha: 1)))
+                .foregroundColor(.white)
             
             List {
                 
@@ -70,24 +70,25 @@ struct MovieListScreen: View {
                 
             }.listStyle(PlainListStyle())
             
-            .navigationTitle("Movies")
-            .navigationBarItems(trailing: Button("Add Movie") {
-                activeSheet = .addMovie
-            })
-            .sheet(item: $activeSheet, onDismiss: {
-                getAllMovies()
-            }, content: { item in
-                switch item {
+                .navigationTitle("Movies")
+                .navigationBarItems(trailing: Button("Add Movie") {
+                    activeSheet = .addMovie
+                })
+                .sheet(item: $activeSheet, onDismiss: {
+                    getAllMovies()
+                }, content: { item in
+                    switch item {
                     case .addMovie:
                         AddMovieScreen()
                     case .showFilters:
                         ShowFiltersScreen(movies: $movieListVM.movies)
-
-                }
-            })
-            .onAppear(perform: {
-                getAllMovies()
-        })
+                        
+                    }
+                })
+                .onAppear(perform: {
+                    getAllMovies()
+                })
+            if movieListVM.sortEnable {
                 GeometryReader { geometry in
                     VStack {
                         HStack {
@@ -97,25 +98,24 @@ struct MovieListScreen: View {
                                     Text($0.displayText)
                                 }
                             }.frame(width: geometry.size.width/3, height: 100)
-                            .clipped()
+                                .clipped()
                             
                             Picker("Sort Direction", selection: $movieListVM.selectedSortDirection) {
                                 ForEach(SortDirection.allCases, id: \.self) {
                                     Text($0.displayText)
                                 }
                             }.frame(width: geometry.size.width/3, height: 100)
-                            .clipped()
+                                .clipped()
                             
                             Spacer()
                         }
                         Button("Done") {
-                           
+                            movieListVM.sortEnable = false
+                            movieListVM.sort()
                         }
                     }
                 }
-            
-            
-            
+            }
         }.embedInNavigationView()
     }
 }

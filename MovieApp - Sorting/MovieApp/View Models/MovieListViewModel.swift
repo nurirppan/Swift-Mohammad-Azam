@@ -54,7 +54,7 @@ class MovieListViewModel: NSObject, ObservableObject {
     
     @Published var movies = [MovieViewModel]()
     @Published var filterEnabled: Bool = false
-    
+    @Published var sortEnable: Bool = false
     @Published var selectedSortOption: SortOptions = .title
     @Published var selectedSortDirection: SortDirection = .ascending 
 
@@ -65,6 +65,25 @@ class MovieListViewModel: NSObject, ObservableObject {
         }
     }
     
+    func sort() {
+        let request: NSFetchRequest<Movie> = Movie.fetchRequest()
+        
+        // MARK: - this is simply passing one particullar key
+        request.sortDescriptors = [NSSortDescriptor(key: selectedSortOption.rawValue, ascending: selectedSortDirection.value)]
+        // MARK: - this is pass them multiple things, pilih salah satu dengan yang  atas
+//        request.sortDescriptors = [
+//            NSSortDescriptor(key: "title", ascending: true),
+//            NSSortDescriptor(key: "rating", ascending: false),
+//        ]
+        
+        let fetchedResultsController: NSFetchedResultsController<Movie> = NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataManager.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        
+        try? fetchedResultsController.performFetch()
+        
+        DispatchQueue.main.async {
+            self.movies = (fetchedResultsController.fetchedObjects ?? []).map(MovieViewModel.init)
+        }
+    }
     
     func getAllMovies() {
         DispatchQueue.main.async {
