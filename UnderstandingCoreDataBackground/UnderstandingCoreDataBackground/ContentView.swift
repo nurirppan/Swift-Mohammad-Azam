@@ -13,6 +13,45 @@ struct ContentView: View {
     @State private var movies: [Movie] = []
     @State private var movieName: String = ""
     
+    private func loadMovies() {
+        let request: NSFetchRequest<Movie> = Movie.fetchRequest()
+        do {
+            self.movies = try CoreDataManager.shared.viewContext.fetch(request)
+        } catch {
+            print(error)
+        }
+    }
+    
+    private func saveMovie(completion: @escaping () -> Void) {
+        DispatchQueue.global().async {
+            /**
+                Tidak bisa mengunakan fungsi ini dikarnakan viewContext hanya dapat berjalan di ui thread / main thread
+             
+                let viewContext = CoreDataManager.shared.viewContext
+                let movie = Movie(context: viewContext)
+                movie.title = movieName
+                movie.rating = Int16.random(in: 1...5)
+                
+                try? viewContext.save()
+             */
+            // MARK: - gunakan fungsi berikut agar dapat melakukan save di background thread
+            // backgroundContext.perform {} -> asynchronous
+            // backgroundContext.performAndWait {} -> is going free up the thread which it is on and it is goind perform the work
+            let backgroundContext = CoreDataManager.shared.persistentContainer.newBackgroundContext()
+            backgroundContext.perform {
+                let movie = Movie(context: backgroundContext)
+                movie.title = movieName
+                movie.rating = Int16.random(in: 1...5)
+                
+                try? backgroundContext.save()
+                
+                // wajib menggunakan ini dikarnakan fungsi sebelumnya / save movie menggunakan background thread. jadi untuk memunculkiad load movie harus menggunakan main thread. inti : load movie di dalam save movie
+                DispatchQueue.main.async {
+                    completion()
+                }
+            }
+        }
+    }
     
     var body: some View {
         
@@ -22,31 +61,9 @@ struct ContentView: View {
             HStack {
                 TextField("Movie name", text: $movieName)
                 Button("Save") {
-                   
-                    DispatchQueue.global().async {
-                        /**
-                            Tidak bisa mengunakan fungsi ini dikarnakan viewContext hanya dapat berjalan di ui thread / main thread
-                         
-                            let viewContext = CoreDataManager.shared.viewContext
-                            let movie = Movie(context: viewContext)
-                            movie.title = movieName
-                            movie.rating = Int16.random(in: 1...5)
-                            
-                            try? viewContext.save()
-                         */
-                        // MARK: - gunakan fungsi berikut agar dapat melakukan save di background thread
-                        // backgroundContext.perform {} -> asynchronous
-                        // backgroundContext.performAndWait {} -> is going free up the thread which it is on and it is goind perform the work
-                        let backgroundContext = CoreDataManager.shared.persistentContainer.newBackgroundContext()
-                        backgroundContext.perform {
-                            let movie = Movie(context: backgroundContext)
-                            movie.title = movieName
-                            movie.rating = Int16.random(in: 1...5)
-                            
-                            try? backgroundContext.save()
-                        }
+                    self.saveMovie {
+                        loadMovies()
                     }
-                    
                 }
             }.padding()
             
@@ -62,7 +79,7 @@ struct ContentView: View {
         .navigationTitle("Movies")
             
         }.onAppear(perform: {
-            
+            self.loadMovies()
         })
             
         }
