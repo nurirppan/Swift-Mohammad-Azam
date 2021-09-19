@@ -1,0 +1,64 @@
+
+apa yang ahrus di test :
+- d0 test application domain : contohnya testing api, logic
+- dont test generated code : ini dikarnakan tidak dibuat oleh kita, ini dibuat oleh sistem
+- dont test issue caught by compiler
+- dont test dependexcy or third party code
+- do test application user interce by automating unit test
+
+unit testing :
+- performed in memory
+- dont access network
+- dont hit database
+- dont use the file system
+- unit testing about more domain testing, domain : seperti transfer, membeli barang, dan lain lain
+
+apa yang membuat bagus unit test: 
+- independent, dapat berjalan tanpa wifi koneksi contohnya. tidak bergantung pada yang lain.
+- automatic 
+- repeatable
+- readable
+
+INTEGRATION TEST:
+- component are combined and tested together to evaluate interractions between them
+- intergration test goes through real world scenarios of how the whole system wil work
+- the fincal sterp is acceptacne testing. the client tests the software on actual hardware using actual data
+
+ACCEPTANCE TESTING :
+- accetance testing is testing performed to satisfy the bisuness criteria
+- acceptance testing is perfoemaed on business requirement and needs
+- acceptance testing is perfoemed by client or the end user
+
+
+PERFORMANCE TESTING
+- Throughtput : the number of request / transactions processed by the application in specified time duration. insert data ke database dengan total 10.000 data dalam waktu 1 detik
+- Response Time : is defined as the delay between the point of request and thie fierst response
+- Tuning : is an iterative process that we use to identify and elimate bottlenecks in the application
+- Benchmarking : is the practice of comaring business proccess and performance metrics to industry bests and best practices from other companies
+
+
+Here are some resources for learning more about Types of Testing: 
+
+https://hackr.io/blog/types-of-software-testing
+
+And here is a link to the slides for Performance Testing:
+
+https://www.slideshare.net/Bugraptors/performance-testing-1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
