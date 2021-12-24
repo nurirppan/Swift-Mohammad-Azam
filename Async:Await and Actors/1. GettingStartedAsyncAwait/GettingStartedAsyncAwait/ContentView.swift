@@ -34,8 +34,16 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+/**
+ - onAppear tidak bisa memanggil fungsi async jadi harus di ganti menjadi task (ini yang terbaru)
+ - jika memaksa ingin di panggil fungsi tersebut maka harus menggunakan fungsi tambahan, berikut adalah codingan nya
+ .onAppear {
+     async {
+         await currentDateListVM.populateDates()
+     }
+ }
+ - untuk mengganti onAppear menggunakan.task agar dapat memanggil fungsi async dan task itu hanyak di paggil sekali ketika view sudah muncul
+ - tambahkan await ketika inggil memanggil fungsi async
+ 
+ 
+ */
