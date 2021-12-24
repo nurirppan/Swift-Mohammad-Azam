@@ -47,7 +47,16 @@ func getPosts() async throws -> [Post] {
     }
     
 }
-
+// MARK: - cara panggil fungsi biasa
+getPosts { retsul in
+    switch retsul {
+    case .success(let response):
+        print(response)
+    case .failure(let error):
+        print(error.localizedDescription)
+    }
+}
+// MARK: - panggil fungsi async await
 async {
     do {
         let posts = try await getPosts()
