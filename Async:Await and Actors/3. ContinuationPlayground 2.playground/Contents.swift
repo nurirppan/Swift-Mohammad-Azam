@@ -76,6 +76,10 @@ async {
  -
  
  2
+ - gunakan fungsi ini withCheckedThrowingContinuation untuk mengizinkan kita untuk mendapatkan tipe throw error
+ - fungsi async hanya dapat di panggil oleh async juga
+ - janga lupa gunakan try await  juga
+ - gunakan do catch untuk mengambil throwing exception
  
  */
 
